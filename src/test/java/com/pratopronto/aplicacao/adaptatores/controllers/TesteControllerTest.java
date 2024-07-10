@@ -1,28 +1,18 @@
 package com.pratopronto.aplicacao.adaptatores.controllers;
 
-import com.pratopronto.dominio.dtos.cliente.ClienteDTO;
-import com.pratopronto.dominio.portas.interfaces.ClienteServicePort;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
+import com.pratopronto.dominio.portas.interfaces.CustomerServicePort;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 class TesteControllerTest {
 
     private MockMvc mockMvc;
 
     @Mock
-    private ClienteServicePort clienteServicePort;
+    private CustomerServicePort customerServicePort;
 
    /* @BeforeEach
     void setUp() {

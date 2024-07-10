@@ -1,14 +1,14 @@
 package com.pratopronto.infraestrutura.configuracao;
 
-import com.pratopronto.dominio.adaptadores.services.ClienteServiceImp;
-import com.pratopronto.dominio.adaptadores.services.PedidoServiceImp;
-import com.pratopronto.dominio.adaptadores.services.ProdutoServiceImp;
-import com.pratopronto.dominio.portas.interfaces.ClienteServicePort;
-import com.pratopronto.dominio.portas.interfaces.PedidoServicePort;
-import com.pratopronto.dominio.portas.interfaces.ProdutoServicePort;
-import com.pratopronto.dominio.portas.repositories.ClienteRepositoryPort;
-import com.pratopronto.dominio.portas.repositories.PedidoRepositoryPort;
-import com.pratopronto.dominio.portas.repositories.ProdutoRepositoryPort;
+import com.pratopronto.dominio.adaptadores.services.CustomerServiceImp;
+import com.pratopronto.dominio.adaptadores.services.OrderServiceImp;
+import com.pratopronto.dominio.adaptadores.services.ProductServiceImp;
+import com.pratopronto.dominio.portas.interfaces.CustomerServicePort;
+import com.pratopronto.dominio.portas.interfaces.OrderServicePort;
+import com.pratopronto.dominio.portas.interfaces.ProductServicePort;
+import com.pratopronto.dominio.portas.repositories.CustomerRepositoryPort;
+import com.pratopronto.dominio.portas.repositories.OrderRepositoryPort;
+import com.pratopronto.dominio.portas.repositories.ProductRepositoryPort;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,17 +16,17 @@ import org.springframework.context.annotation.Configuration;
 public class BeanConfiguracao {
 
     @Bean
-    ProdutoServicePort produtoService(ProdutoRepositoryPort produtoRepositoryPort) {
-        return new ProdutoServiceImp(produtoRepositoryPort);
+    ProductServicePort productServicePort(ProductRepositoryPort productRepositoryPort) {
+        return new ProductServiceImp(productRepositoryPort);
     }
 
     @Bean
-    ClienteServicePort clienteServicePort(ClienteRepositoryPort clienteRepositoryPort) {
-        return new ClienteServiceImp(clienteRepositoryPort);
+    CustomerServicePort customerServicePort(CustomerRepositoryPort customerRepositoryPort) {
+        return new CustomerServiceImp(customerRepositoryPort);
     }
 
     @Bean
-    PedidoServicePort pedidoServicePort(PedidoRepositoryPort pedidoRepositoryPort, ProdutoRepositoryPort produtoRepositoryPort, ClienteRepositoryPort clienteRepositoryPort) {
-        return new PedidoServiceImp(pedidoRepositoryPort, produtoRepositoryPort, clienteRepositoryPort);
+    OrderServicePort orderServicePort(OrderRepositoryPort orderRepositoryPort, ProductRepositoryPort productRepositoryPort, CustomerRepositoryPort customerRepositoryPort) {
+        return new OrderServiceImp(orderRepositoryPort, productRepositoryPort, customerRepositoryPort);
     }
 }
