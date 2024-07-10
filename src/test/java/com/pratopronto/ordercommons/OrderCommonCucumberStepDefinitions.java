@@ -1,4 +1,4 @@
-package com.pratopronto.customercommons;
+package com.pratopronto.ordercommons;
 
 import com.pratopronto.dominio.dtos.customer.CustomerDTO;
 import io.cucumber.java.en.And;
@@ -11,10 +11,10 @@ import org.springframework.http.HttpStatus;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class CustomerCommonCucumberStepDefinitions {
+public class OrderCommonCucumberStepDefinitions {
 
     @Autowired
-    private CustomerHttpClient customerHttpClient;
+    private OrderHttpClient orderHttpClient;
 
     private CustomerDTO customerDTO;
 
@@ -32,13 +32,13 @@ public class CustomerCommonCucumberStepDefinitions {
         customerDTO = new CustomerDTO();
         customerDTO.setName("João");
         customerDTO.setCpf(cpf);
-        customerHttpClient.registerCustomer(customerDTO);
+        orderHttpClient.registerCustomer(customerDTO);
     }
 
     @When("I send a request to register the customer")
     public void iSendARequestToRegisterTheCustomer() {
         httpStatus = null;
-        httpStatus = customerHttpClient.registerCustomer(customerDTO);
+        httpStatus = orderHttpClient.registerCustomer(customerDTO);
     }
 
     @Then("the customer is successfully registered")
@@ -48,7 +48,7 @@ public class CustomerCommonCucumberStepDefinitions {
 
     @When("I send a request to retrieve the customer by CPF {string}")
     public void iSendARequestToRetrieveTheCustomerByCpf(final String cpf) {
-        customerDTO = customerHttpClient.getCustomer(cpf);
+        customerDTO = orderHttpClient.getCustomer(cpf);
     }
 
     @Then("I receive the customer's data")

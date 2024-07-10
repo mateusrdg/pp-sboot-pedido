@@ -1,4 +1,4 @@
-package com.pratopronto.customercommons;
+package com.pratopronto.productcommons;
 
 import com.pratopronto.dominio.dtos.customer.CustomerDTO;
 import io.cucumber.java.en.And;
@@ -11,10 +11,10 @@ import org.springframework.http.HttpStatus;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class CustomerCommonCucumberStepDefinitions {
+public class ProductCommonCucumberStepDefinitions {
 
     @Autowired
-    private CustomerHttpClient customerHttpClient;
+    private ProductHttpClient customerHttpClient;
 
     private CustomerDTO customerDTO;
 

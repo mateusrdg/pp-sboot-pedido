@@ -1,4 +1,4 @@
-package com.pratopronto.customercommons;
+package com.pratopronto.cucumber.config;
 
 import io.cucumber.spring.CucumberContextConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;

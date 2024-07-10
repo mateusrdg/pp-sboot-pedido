@@ -1,4 +1,4 @@
-package com.pratopronto.customercommons;
+package com.pratopronto.ordercommons;
 
 import com.pratopronto.dominio.dtos.customer.CustomerDTO;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -11,10 +11,10 @@ import static io.cucumber.spring.CucumberTestContext.SCOPE_CUCUMBER_GLUE;
 
 @Component
 @Scope(SCOPE_CUCUMBER_GLUE)
-public class CustomerHttpClient {
+public class OrderHttpClient {
 
     private final String SERVER_URL = "http://localhost";
-    private final String CUSTOMERS_ENDPOINT = "/customers";
+    private final String CUSTOMERS_ENDPOINT = "/orders";
 
     @LocalServerPort
     private int port;
