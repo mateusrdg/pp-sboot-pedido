@@ -24,8 +24,8 @@ public class CustomerServiceImp implements CustomerServicePort {
 
     @Override
     public CustomerDTO findCustomerByCpf(String cpf) {
-        Optional<Customer> cliente = this.customerRepositoryPort.findCustomerByCpf(cpf);
-        return cliente.map(Customer::toClienteDTO).orElseThrow(() -> new NotFoundException("Cliente não existe"));
+        Optional<Customer> customer = this.customerRepositoryPort.findCustomerByCpf(cpf);
+        return customer.map(Customer::toCustomerDTO).orElseThrow(() -> new NotFoundException("Cliente não existe"));
     }
 
 }

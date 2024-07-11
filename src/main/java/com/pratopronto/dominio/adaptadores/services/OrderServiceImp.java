@@ -13,7 +13,6 @@ import com.pratopronto.dominio.portas.repositories.ProductRepositoryPort;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class OrderServiceImp implements OrderServicePort {
@@ -45,20 +44,20 @@ public class OrderServiceImp implements OrderServicePort {
     }
 
     private Customer validateCustomer(String cpfCliente) {
-        Optional<Customer> clienteOptional = customerRepositoryPort.findCustomerByCpf(cpfCliente);
-        if (clienteOptional.isEmpty())
+        Optional<Customer> optionalCustomer = customerRepositoryPort.findCustomerByCpf(cpfCliente);
+        if (optionalCustomer.isEmpty())
             throw new NotFoundException("Cliente não existe");
-        return clienteOptional.get();
+        return optionalCustomer.get();
     }
 
     @Override
     public List<OrderDTO> findOrders() {
-        List<Order> orders = this.orderRepositoryPort.findAll();
+        List<Order> orders = this.orderRepositoryPort.findAllTeste();
         return orders.stream().map(Order::toPedidoDTO).collect(Collectors.toList());
     }
 
     @Override
-    public void updateOrderStatus(UUID id, UpdateOrderDTO updateOrderDTO) throws NotFoundException {
+    public void updateOrderStatus(Long id, UpdateOrderDTO updateOrderDTO) throws NotFoundException {
         Order order = validateOrder(id);
         update(order, updateOrderDTO);
         this.orderRepositoryPort.update(order);
@@ -68,7 +67,7 @@ public class OrderServiceImp implements OrderServicePort {
         order.setStatus(updateOrderDTO.getStatus());
     }
 
-    private Order validateOrder(UUID id) {
+    private Order validateOrder(Long id) {
         Optional<Order> pedidoOptional =  this.orderRepositoryPort.findById(id);
         if (pedidoOptional.isEmpty())
             throw new NotFoundException("Pedido não existe");

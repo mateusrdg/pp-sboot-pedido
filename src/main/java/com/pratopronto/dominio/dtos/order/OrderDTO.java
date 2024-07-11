@@ -5,10 +5,9 @@ import com.pratopronto.dominio.enums.StatusEnum;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 public class OrderDTO {
-    private UUID id;
+    private Long id;
     private List<String> produtos;
     private String cpfCliente;
     private StatusEnum status;
@@ -19,7 +18,7 @@ public class OrderDTO {
     public OrderDTO() {
     }
 
-    public OrderDTO(UUID id, List<String> produtos, String cpfCliente, StatusEnum status, LocalDateTime dataCriacao, LocalDateTime dataAtualizacao) {
+    public OrderDTO(Long id, List<String> produtos, String cpfCliente, StatusEnum status, LocalDateTime dataCriacao, LocalDateTime dataAtualizacao) {
         this.id = id;
         this.produtos = produtos;
         this.cpfCliente = cpfCliente;
@@ -27,11 +26,11 @@ public class OrderDTO {
         this.dataCriacao = dataCriacao;
         this.dataAtualizacao = dataAtualizacao;
     }
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
     public List<String> getProdutos() {

@@ -5,10 +5,12 @@ import com.pratopronto.dominio.enums.CategoryEnum;
 import com.pratopronto.dominio.portas.repositories.ProductRepositoryPort;
 import com.pratopronto.infraestrutura.adaptadores.entidades.ProductEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+
 import java.util.stream.Collectors;
 
 @Component
@@ -57,6 +59,7 @@ public class ProductRepository implements ProductRepositoryPort {
     }
 
     @Override
+    @Transactional
     public void delete(String sku) {
         this.productJpaRepository.deleteBySku(sku);
     }

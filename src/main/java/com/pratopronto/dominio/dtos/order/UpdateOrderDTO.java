@@ -3,25 +3,24 @@ package com.pratopronto.dominio.dtos.order;
 import com.pratopronto.dominio.enums.StatusEnum;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 public class UpdateOrderDTO {
-    private UUID id;
+    private Long id;
     private StatusEnum status;
     private LocalDateTime updateDate = LocalDateTime.now();
 
     public UpdateOrderDTO() {
     }
 
-    public UpdateOrderDTO(UUID id, LocalDateTime updateDate) {
+    public UpdateOrderDTO(Long id, LocalDateTime updateDate) {
         this.id = id;
         this.updateDate = updateDate;
     }
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

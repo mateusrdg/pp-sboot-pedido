@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+
 import java.util.stream.Collectors;
 
 @Entity
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class OrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    private Long id;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderProductsEntity> orderProducts = new ArrayList<>();
@@ -33,10 +33,10 @@ public class OrderEntity {
     public OrderEntity() {
     }
 
-    public OrderEntity(UUID id, Order order) {
+    public OrderEntity(Long id, Order order) {
         this.id = id;
         this.orderProducts = order.getProducts().stream()
-                .map(produto -> new OrderProductsEntity(this, new ProductEntity(produto)))
+                .map(product -> new OrderProductsEntity(this, new ProductEntity(product)))
                 .collect(Collectors.toList());
         this.customer = new CustomerEntity(order.getCliente());
         this.status = order.getStatus();
@@ -54,7 +54,55 @@ public class OrderEntity {
     }
 
     public Order toOrder() {
-        return new Order(this.id, this.orderProducts.stream().map(OrderProductsEntity::getProduto)
+        return new Order(this.id, this.orderProducts.stream().map(OrderProductsEntity::getProduct)
                 .map(ProductEntity::toProduto).collect(Collectors.toList()), this.customer.toCustomer(), this.status, this.createDateTime, this.updateDateTime);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public List<OrderProductsEntity> getOrderProducts() {
+        return orderProducts;
+    }
+
+    public void setOrderProducts(List<OrderProductsEntity> orderProducts) {
+        this.orderProducts = orderProducts;
+    }
+
+    public CustomerEntity getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(CustomerEntity customer) {
+        this.customer = customer;
+    }
+
+    public StatusEnum getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusEnum status) {
+        this.status = status;
+    }
+
+    public LocalDateTime getCreateDateTime() {
+        return createDateTime;
+    }
+
+    public void setCreateDateTime(LocalDateTime createDateTime) {
+        this.createDateTime = createDateTime;
+    }
+
+    public LocalDateTime getUpdateDateTime() {
+        return updateDateTime;
+    }
+
+    public void setUpdateDateTime(LocalDateTime updateDateTime) {
+        this.updateDateTime = updateDateTime;
     }
 }

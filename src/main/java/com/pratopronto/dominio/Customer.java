@@ -2,37 +2,36 @@ package com.pratopronto.dominio;
 
 import com.pratopronto.dominio.dtos.customer.CustomerDTO;
 
-import java.util.UUID;
 
 public class Customer {
 
-    private UUID id;
-    private String nome;
+    private Long id;
+    private String name;
     private String cpf;
 
     public Customer() {
     }
 
-    public Customer(UUID id, String nome, String cpf) {
+    public Customer(Long id, String name, String cpf) {
         this.id = id;
-        this.nome = nome;
+        this.name = name;
         this.cpf = cpf;
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getCpf() {
@@ -44,11 +43,11 @@ public class Customer {
     }
 
     public Customer(CustomerDTO customerDTO) {
-        this.nome = customerDTO.getName();
+        this.name = customerDTO.getName();
         this.cpf = customerDTO.getCpf();
     }
 
-    public CustomerDTO toClienteDTO() {
-        return new CustomerDTO(this.nome , this.cpf);
+    public CustomerDTO toCustomerDTO() {
+        return new CustomerDTO(this.name, this.cpf);
     }
 }
