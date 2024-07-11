@@ -1,6 +1,7 @@
 package com.pratopronto.productcommons;
 
-import com.pratopronto.dominio.dtos.customer.CustomerDTO;
+import com.pratopronto.dominio.dtos.product.ProductDTO;
+import com.pratopronto.dominio.enums.CategoryEnum;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -14,50 +15,97 @@ import static org.junit.Assert.assertNotNull;
 public class ProductCommonCucumberStepDefinitions {
 
     @Autowired
-    private ProductHttpClient customerHttpClient;
+    private ProductHttpClient productHttpClient;
 
-    private CustomerDTO customerDTO;
-
+    private ProductDTO productDTO;
     private HttpStatus httpStatus;
 
-    @Given("I have the customer's data")
-    public void iHaveTheCustomersData() {
-        customerDTO = new CustomerDTO();
-        customerDTO.setName("João");
-        customerDTO.setCpf("12345678900");
+    @Given("I have the product's data")
+    public void iHaveTheProductsData() {
+        productDTO = newProduct("12345");
     }
 
-    @Given("I have a customer registered with CPF {string}")
-    public void iHaveACustomerRegisteredWithCpf(final String cpf) {
-        customerDTO = new CustomerDTO();
-        customerDTO.setName("João");
-        customerDTO.setCpf(cpf);
-        customerHttpClient.registerCustomer(customerDTO);
+    @Given("I have a product registered with SKU {string}")
+    public void iHaveAProductRegisteredWithSku(final String sku) {
+        productDTO = newProduct(sku);
+        productDTO.setSku(sku);
+        productHttpClient.insertProduct(productDTO);
     }
 
-    @When("I send a request to register the customer")
-    public void iSendARequestToRegisterTheCustomer() {
-        httpStatus = null;
-        httpStatus = customerHttpClient.registerCustomer(customerDTO);
+    @Given("I have a product with SKU {string}")
+    public void iHaveAProductWithSku(final String sku) {
+        productDTO = newProduct(sku);
     }
 
-    @Then("the customer is successfully registered")
-    public void theCustomerIsSuccessfullyRegistered() {
+    @When("I send a request to insert the product")
+    public void iSendARequestToInsertTheProduct() {
+        httpStatus = productHttpClient.insertProduct(productDTO);
+    }
+
+    @Then("the product is successfully inserted")
+    public void theProductIsSuccessfullyInserted() {
         assertEquals(HttpStatus.OK, httpStatus);
     }
 
-    @When("I send a request to retrieve the customer by CPF {string}")
-    public void iSendARequestToRetrieveTheCustomerByCpf(final String cpf) {
-        customerDTO = customerHttpClient.getCustomer(cpf);
+    @When("I send a request to retrieve the product by SKU {string}")
+    public void iSendARequestToRetrieveTheProductBySku(final String sku) {
+        productDTO = productHttpClient.getProduct(sku);
     }
 
-    @Then("I receive the customer's data")
-    public void iReceiveTheCustomersData() {
-        assertNotNull(customerDTO);
+    @Then("I receive the product's data")
+    public void iReceiveTheProductsData() {
+        assertNotNull(productDTO);
+        productHttpClient.deleteProduct("12345");
     }
 
-    @And("the customer's name is {string}")
-    public void theCustomersNameIs(String name) {
-        assertEquals(name, customerDTO.getName());
+    @When("I send a request to update the product")
+    public void iSendARequestToUpdateTheProduct() {
+        httpStatus = productHttpClient.updateProduct("12345", productDTO);
+    }
+
+    @Then("the product is successfully updated")
+    public void theProductIsSuccessfullyUpdated() {
+        assertEquals(HttpStatus.OK, httpStatus);
+    }
+
+    @When("I send a request to delete the product by SKU {string}")
+    public void iSendARequestToDeleteTheProductBySku(final String sku) {
+        httpStatus = productHttpClient.deleteProduct(sku);
+    }
+
+    @Then("the product is successfully deleted")
+    public void theProductIsSuccessfullyDeleted() {
+        assertEquals(HttpStatus.OK, httpStatus);
+    }
+
+    @Given("I have products in the category {string}")
+    public void iHaveProductsInTheCategory(final String category) {
+        productDTO = newProduct("12345");
+        productDTO.setCategory(CategoryEnum.fromNome(category));
+        productHttpClient.insertProduct(productDTO);
+    }
+
+    @When("I send a request to list products by category {string}")
+    public void iSendARequestToListProductsByCategory(final String category) {
+        ProductDTO[] products = productHttpClient.getProductsByCategory(category);
+        assertNotNull(products);
+        assertEquals(products.length > 0, true);
+    }
+
+    @Then("I receive a list of products in the category {string}")
+    public void iReceiveAListOfProductsInTheCategory(final String category) {
+        ProductDTO[] products = productHttpClient.getProductsByCategory(category);
+        assertNotNull(products);
+        assertEquals(products.length > 0, true);
+    }
+
+    private ProductDTO newProduct(String sku) {
+        return new ProductDTO(
+                sku,
+                "Product 1",
+                10.99,
+                "Description for Product 1",
+                "https://example.com/images/product1.jpg",
+                CategoryEnum.LANCHE);
     }
 }

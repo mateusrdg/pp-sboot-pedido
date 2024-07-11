@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
+
 import java.util.stream.Collectors;
 
 @Component
@@ -22,7 +22,7 @@ public class OrderRepository implements OrderRepositoryPort {
 
     @Override
     public Optional<Order> findByCustomer(Customer customer) {
-        Optional<OrderEntity> pedidoEntity = this.orderJpaRepository.findByCustomer(customer);
+        Optional<OrderEntity> pedidoEntity = this.orderJpaRepository.findByCustomerCpf(customer.getCpf());
         return pedidoEntity.map(OrderEntity::toOrder);
     }
 
@@ -39,7 +39,8 @@ public class OrderRepository implements OrderRepositoryPort {
     }
 
     @Override
-    public Optional<Order> findById(UUID id) {
+    public Optional<Order> findById(Long id) {
+        this.orderJpaRepository.findAll();
         return this.orderJpaRepository.findById(id).map(OrderEntity::toOrder);
     }
 
@@ -47,5 +48,11 @@ public class OrderRepository implements OrderRepositoryPort {
     public void update(Order order) {
         OrderEntity orderEntity = new OrderEntity(order.getId(), order);
         this.orderJpaRepository.save(orderEntity);
+    }
+
+    @Override
+    public List<Order> findAllTeste() {
+        List<OrderEntity> pedidoEntities = this.orderJpaRepository.findAll();
+        return pedidoEntities.stream().map(OrderEntity::toOrder).collect(Collectors.toList());
     }
 }

@@ -3,51 +3,59 @@ package com.pratopronto.dominio.dtos.product;
 import com.pratopronto.dominio.enums.CategoryEnum;
 
 public class ProductDTO {
-    private String sku;
-    private String nome;
-    private Double preco;
-    private String descricao;
-    private String imagens;
-    private CategoryEnum categoria;
 
-    public ProductDTO(String sku, String nome, Double preco, String descricao, String imagens, CategoryEnum categoria) {
+    private String sku;
+    private String name;
+    private Double price;
+    private String description;
+    private String images;
+    private CategoryEnum category;
+
+    public ProductDTO(){
+    }
+
+    public ProductDTO(String sku, String name, Double price, String description, String images, CategoryEnum category) {
         this.sku = sku;
-        this.nome = nome;
-        this.preco = preco;
-        this.descricao = descricao;
-        this.imagens = imagens;
-        this.categoria = categoria;
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.images = images;
+        this.category = category;
     }
 
     public String getSku() {
         return sku;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public Double getPreco() {
-        return preco;
+    public Double getPrice() {
+        return price;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getDescription() {
+        return description;
     }
 
-    public CategoryEnum getCategoria() {
-        return categoria;
+    public CategoryEnum getCategory() {
+        return category;
     }
 
-    public void setCategoria(CategoryEnum categoria) {
-        this.categoria = categoria;
+    public void setCategory(CategoryEnum category) {
+        this.category = category;
     }
 
-    public String getImagens() {
-        return imagens;
+    public String getImages() {
+        return images;
     }
 
-    public void setImagens(String imagens) {
-        this.imagens = imagens;
+    public void setImages(String images) {
+        this.images = images;
+    }
+
+    public void setSku(String sku) {
+        this.sku = sku;
     }
 }

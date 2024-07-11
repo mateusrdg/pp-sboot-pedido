@@ -3,11 +3,10 @@ package com.pratopronto.dominio;
 import com.pratopronto.dominio.dtos.product.ProductDTO;
 import com.pratopronto.dominio.enums.CategoryEnum;
 
-import java.util.UUID;
 
 public class Product {
 
-    private UUID id;
+    private Long id;
     private String sku;
     private String name;
     private Double price;
@@ -18,7 +17,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(UUID id, String sku, String name, String description, Double price, String images, CategoryEnum category) {
+    public Product(Long id, String sku, String name, String description, Double price, String images, CategoryEnum category) {
         this.id = id;
         this.sku = sku;
         this.name = name;
@@ -28,7 +27,7 @@ public class Product {
         this.category = category;
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
@@ -66,19 +65,19 @@ public class Product {
 
     public Product(ProductDTO productDTO) {
         this.sku = productDTO.getSku();
-        this.name = productDTO.getNome();
-        this.price = productDTO.getPreco();
-        this.description = productDTO.getDescricao();
-        this.images = productDTO.getImagens();
-        this.category = productDTO.getCategoria();
+        this.name = productDTO.getName();
+        this.price = productDTO.getPrice();
+        this.description = productDTO.getDescription();
+        this.images = productDTO.getImages();
+        this.category = productDTO.getCategory();
     }
 
     public void atualizar(ProductDTO productDTO) {
-        this.name = productDTO.getNome();
-        this.price = productDTO.getPreco();
-        this.description = productDTO.getDescricao();
-        this.images = productDTO.getImagens();
-        this.category = productDTO.getCategoria();
+        this.name = productDTO.getName();
+        this.price = productDTO.getPrice();
+        this.description = productDTO.getDescription();
+        this.images = productDTO.getImages();
+        this.category = productDTO.getCategory();
     }
     public ProductDTO toProductDTO() {
         return new ProductDTO(this.sku, this.name, this.price, this.description, this.images, this.category);

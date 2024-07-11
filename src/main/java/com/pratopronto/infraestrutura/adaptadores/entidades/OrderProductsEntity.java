@@ -1,14 +1,14 @@
 package com.pratopronto.infraestrutura.adaptadores.entidades;
 
 import javax.persistence.*;
-import java.util.UUID;
+
 
 @Entity
-@Table(name = "order_products")
+@Table(name = "order_product")
 public class OrderProductsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    private Long id;
 
     @ManyToOne()
     @JoinColumn(name = "order_id")
@@ -28,6 +28,14 @@ public class OrderProductsEntity {
 
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public OrderEntity getOrder() {
         return order;
     }
@@ -36,11 +44,11 @@ public class OrderProductsEntity {
         this.order = order;
     }
 
-    public ProductEntity getProduto() {
+    public ProductEntity getProduct() {
         return product;
     }
 
-    public void setProduto(ProductEntity produto) {
-        this.product = produto;
+    public void setProduct(ProductEntity product) {
+        this.product = product;
     }
 }

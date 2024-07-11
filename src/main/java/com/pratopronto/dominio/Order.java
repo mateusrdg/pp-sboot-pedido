@@ -5,12 +5,11 @@ import com.pratopronto.dominio.enums.StatusEnum;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class Order {
 
-    private UUID id;
+    private Long id;
     private List<Product> products;
     private Customer customer;
     private StatusEnum status;
@@ -19,7 +18,7 @@ public class Order {
     public Order() {
     }
 
-    public Order(UUID id, List<Product> products, Customer customer, StatusEnum status, LocalDateTime creationDateTime, LocalDateTime updateDateTime) {
+    public Order(Long id, List<Product> products, Customer customer, StatusEnum status, LocalDateTime creationDateTime, LocalDateTime updateDateTime) {
         this.id = id;
         this.products = products;
         this.customer = customer;
@@ -38,11 +37,11 @@ public class Order {
         return new OrderDTO(this.id, this.products.stream().map(Product::getSku).collect(Collectors.toList()), this.customer.getCpf(), this.status, this.creationDateTime, this.updateDateTime);
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -7,7 +7,6 @@ import com.pratopronto.dominio.portas.interfaces.OrderServicePort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("orders")
@@ -25,7 +24,7 @@ public class OrderController {
     }
 
     @PutMapping(value = "/{id}")
-    public void updateOrder(@PathVariable UUID id, @RequestBody UpdateOrderDTO updateOrderDTO)throws NotFoundException {
+    public void updateOrder(@PathVariable Long id, @RequestBody UpdateOrderDTO updateOrderDTO)throws NotFoundException {
         orderServicePort.updateOrderStatus(id, updateOrderDTO);
     }
 
