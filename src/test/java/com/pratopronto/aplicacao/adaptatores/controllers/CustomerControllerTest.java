@@ -16,14 +16,15 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-class TesteControllerTest {
+class CustomerControllerTest {
 
     private MockMvc mockMvc;
+
     @InjectMocks
     private CustomerController customerController;
+
     @Mock
     private CustomerServicePort customerServicePort;
 
@@ -34,23 +35,19 @@ class TesteControllerTest {
     }
 
     @Test
-    void testCadastrarCliente() throws Exception {
-        CustomerDTO clienteDTO = new CustomerDTO();
-        // Configure clienteDTO com dados de teste
-
-        mockMvc.perform(post("/testes")
+    void testRegisterCustomer() throws Exception {
+        mockMvc.perform(post("/customers")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{ \"nome\": \"John\", \"cpf\": \"12345678900\" }"))
+                        .content("{ \"name\": \"John\", \"cpf\": \"12345678900\" }"))
                 .andExpect(status().isOk());
 
         verify(customerServicePort, times(1)).registerCustomer(any(CustomerDTO.class));
     }
 
     @Test
-    void testBuscarClientePorCpf() throws Exception {
-        mockMvc.perform(get("/testes")
+    void testFindCustomerByCpf() throws Exception {
+        mockMvc.perform(get("/customers/12345678900")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content().string("Testee"));
+                .andExpect(status().isOk());
     }
 }
