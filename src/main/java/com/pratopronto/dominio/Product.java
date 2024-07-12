@@ -63,6 +63,10 @@ public class Product {
         return description;
     }
 
+    public void setSku(String sku) {
+        this.sku = sku;
+    }
+
     public Product(ProductDTO productDTO) {
         this.sku = productDTO.getSku();
         this.name = productDTO.getName();
