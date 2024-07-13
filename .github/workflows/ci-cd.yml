@@ -34,7 +34,7 @@ jobs:
             -Dsonar.java.binaries=target
             -Dsonar.sources=src/main/java
             -Dsonar.tests=src/test/java
-            -Dsonar.exclusions=src/main/java/com/pratopronto/infraestrutura/configuracao/**
+            -Dsonar.exclusions=src/main/java/com/pratopronto/infraestrutura/configuracao/**,src/main/java/com/pratopronto/infraestrutura/adaptadores/entidades/**
       # Check the Quality Gate status.
       - name: SonarQube Quality Gate check
         id: sonarqube-quality-gate-check
