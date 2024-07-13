@@ -7,6 +7,7 @@ import com.pratopronto.dominio.Product;
 import com.pratopronto.dominio.dtos.order.UpdateOrderDTO;
 import com.pratopronto.dominio.dtos.order.OrderDTO;
 import com.pratopronto.dominio.portas.interfaces.OrderServicePort;
+import com.pratopronto.dominio.portas.interfaces.PaymentServicePort;
 import com.pratopronto.dominio.portas.repositories.CustomerRepositoryPort;
 import com.pratopronto.dominio.portas.repositories.OrderRepositoryPort;
 import com.pratopronto.dominio.portas.repositories.ProductRepositoryPort;
@@ -20,11 +21,13 @@ public class OrderServiceImp implements OrderServicePort {
     private final OrderRepositoryPort orderRepositoryPort;
     private final ProductRepositoryPort productRepositoryPort;
     private final CustomerRepositoryPort customerRepositoryPort;
+    private final PaymentServicePort paymentServicePort;
 
-    public OrderServiceImp(OrderRepositoryPort orderRepositoryPort, ProductRepositoryPort productRepositoryPort, CustomerRepositoryPort customerRepositoryPort) {
+    public OrderServiceImp(OrderRepositoryPort orderRepositoryPort, ProductRepositoryPort productRepositoryPort, CustomerRepositoryPort customerRepositoryPort, PaymentServicePort paymentServicePort) {
         this.orderRepositoryPort = orderRepositoryPort;
         this.productRepositoryPort = productRepositoryPort;
         this.customerRepositoryPort = customerRepositoryPort;
+        this.paymentServicePort = paymentServicePort;
     }
 
     @Override
@@ -33,7 +36,9 @@ public class OrderServiceImp implements OrderServicePort {
         List<Product> products = validaProdutos(orderDTO.getProdutos());
 
         Order order = new Order(products, customer);
-        return this.orderRepositoryPort.save(order).toPedidoDTO();
+        Order savedOrder = this.orderRepositoryPort.save(order);
+        paymentServicePort.sendPayment(savedOrder);
+        return savedOrder.toOrderDTO();
     }
 
     private List<Product> validaProdutos(List<String> listaSkus) {
@@ -53,7 +58,7 @@ public class OrderServiceImp implements OrderServicePort {
     @Override
     public List<OrderDTO> findOrders() {
         List<Order> orders = this.orderRepositoryPort.findAllTeste();
-        return orders.stream().map(Order::toPedidoDTO).collect(Collectors.toList());
+        return orders.stream().map(Order::toOrderDTO).collect(Collectors.toList());
     }
 
     @Override
@@ -78,7 +83,7 @@ public class OrderServiceImp implements OrderServicePort {
     public OrderDTO findOrderByCpf(String cpf) throws NotFoundException {
         Customer customer = validateCustomer(cpf);
         Optional<Order> pedidoOptional = this.orderRepositoryPort.findByCustomer(customer);
-        return pedidoOptional.map(Order::toPedidoDTO).orElseThrow(() -> new NotFoundException("Pedido não existe"));
+        return pedidoOptional.map(Order::toOrderDTO).orElseThrow(() -> new NotFoundException("Pedido não existe"));
     }
 
 }

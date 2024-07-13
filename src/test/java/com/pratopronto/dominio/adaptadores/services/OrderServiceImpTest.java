@@ -5,7 +5,6 @@ import com.pratopronto.dominio.Order;
 import com.pratopronto.dominio.Product;
 import com.pratopronto.dominio.dtos.order.OrderDTO;
 import com.pratopronto.dominio.dtos.order.UpdateOrderDTO;
-import com.pratopronto.dominio.enums.StatusEnum;
 import com.pratopronto.dominio.portas.repositories.CustomerRepositoryPort;
 import com.pratopronto.dominio.portas.repositories.OrderRepositoryPort;
 import com.pratopronto.dominio.portas.repositories.ProductRepositoryPort;
@@ -59,7 +58,7 @@ class OrderServiceImpTest {
 
         OrderDTO result = orderServiceImp.createOrder(orderDTO);
 
-        assertEquals(order.toPedidoDTO().getId(), result.getId());
+        assertEquals(order.toOrderDTO().getId(), result.getId());
     }
 
     @Test
@@ -76,7 +75,7 @@ class OrderServiceImpTest {
         List<OrderDTO> result = orderServiceImp.findOrders();
 
         assertEquals(1, result.size());
-        assertEquals(order.toPedidoDTO().getId(), result.get(0).getId());
+        assertEquals(order.toOrderDTO().getId(), result.get(0).getId());
     }
 
     @Test
@@ -111,6 +110,6 @@ class OrderServiceImpTest {
 
         OrderDTO result = orderServiceImp.findOrderByCpf("60541329388");
 
-        assertEquals(order.toPedidoDTO().getCpfCliente(), result.getCpfCliente());
+        assertEquals(order.toOrderDTO().getCpfCliente(), result.getCpfCliente());
     }
 }

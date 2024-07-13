@@ -41,6 +41,23 @@
             <version>42.7.0</version>
         </dependency>
         <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-aws</artifactId>
+            <version>2.2.6.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-aws-messaging</artifactId>
+            <version>2.2.6.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+        </dependency>
+
+        <!-- Testes -->
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <version>3.3.0</version>
@@ -70,13 +87,11 @@
             <version>7.3.3</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 
     <build>
