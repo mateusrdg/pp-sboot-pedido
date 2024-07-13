@@ -33,7 +33,7 @@ public class Order {
         this.status = StatusEnum.RECEBIDO;
     }
 
-    public OrderDTO toPedidoDTO() {
+    public OrderDTO toOrderDTO() {
         return new OrderDTO(this.id, this.products.stream().map(Product::getSku).collect(Collectors.toList()), this.customer.getCpf(), this.status, this.creationDateTime, this.updateDateTime);
     }
 

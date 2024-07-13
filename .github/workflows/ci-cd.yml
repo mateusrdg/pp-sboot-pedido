@@ -90,3 +90,6 @@ jobs:
           service: springboot-prato-pronto-service
           cluster: Cluster
           wait-for-service-stability: true
+
+      - name: Set AWS Endpoint Environment Variable
+        run: echo "AWS_ENDPOINT=${{ secrets.AWS_ENDPOINT }}" >> $GITHUB_ENV
