@@ -5,6 +5,7 @@ import com.pratopronto.dominio.Order;
 import com.pratopronto.dominio.Product;
 import com.pratopronto.dominio.dtos.order.OrderDTO;
 import com.pratopronto.dominio.dtos.order.UpdateOrderDTO;
+import com.pratopronto.dominio.portas.interfaces.PaymentServicePort;
 import com.pratopronto.dominio.portas.repositories.CustomerRepositoryPort;
 import com.pratopronto.dominio.portas.repositories.OrderRepositoryPort;
 import com.pratopronto.dominio.portas.repositories.ProductRepositoryPort;
@@ -36,6 +37,9 @@ class OrderServiceImpTest {
 
     @Mock
     private CustomerRepositoryPort customerRepositoryPort;
+
+    @Mock
+    private PaymentServicePort paymentServicePort;
 
     @Test
     void testeCreateOrder() {
