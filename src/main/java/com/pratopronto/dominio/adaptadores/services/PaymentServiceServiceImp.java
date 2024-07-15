@@ -13,13 +13,15 @@ import org.springframework.cloud.aws.messaging.core.QueueMessagingTemplate;
 import org.springframework.cloud.aws.messaging.listener.annotation.SqsListener;
 import org.springframework.messaging.support.MessageBuilder;
 
+import static com.pratopronto.infraestrutura.configuracao.AwsSQSConfig.removePipes;
+
 public class PaymentServiceServiceImp implements PaymentServicePort {
 
     private final QueueMessagingTemplate queueMessagingTemplate;
     private final OrderRepositoryPort orderRepositoryPort;
     private final ObjectMapper objectMapper;
 
-    @Value("${cloud.aws.end-point.uri}")
+    @Value("${claudio.amazonia.ponto-final.uris}")
     private String endpoint;
 
     public PaymentServiceServiceImp(QueueMessagingTemplate queueMessagingTemplate, OrderRepositoryPort orderRepositoryPort, ObjectMapper objectMapper) {
@@ -31,7 +33,7 @@ public class PaymentServiceServiceImp implements PaymentServicePort {
     @Override
     public void sendPayment(Order order) {
         try {
-            queueMessagingTemplate.send(endpoint, MessageBuilder.withPayload(objectMapper.writeValueAsString(order)).build());
+            queueMessagingTemplate.send(removePipes(endpoint), MessageBuilder.withPayload(objectMapper.writeValueAsString(order)).build());
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }

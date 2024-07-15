@@ -17,11 +17,11 @@ public class AwsSQSConfig {
     @Value("${cloud.aws.region.static}")
     private String region;
 
-    @Value("${cloud.aws.credentials.access-key}")
-    private String awsAccessKey;
+    @Value("${claudio.amazonia.crediario.cadeado}")
+    private String cadeado;
 
-    @Value("${cloud.aws.credentials.secret-key}")
-    private String awsSecretKey;
+    @Value("${claudio.amazonia.crediario.todomundo-sabe}")
+    private String todomundoSabe;
 
     @Bean
     public QueueMessagingTemplate queueMessagingTemplate() {
@@ -31,9 +31,17 @@ public class AwsSQSConfig {
     @Primary
     @Bean
     public AmazonSQSAsync amazonSQSAsync() {
+
         return AmazonSQSAsyncClientBuilder.standard().withRegion(Regions.US_EAST_2)
-                .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials(awsAccessKey, awsSecretKey)))
+                .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials(removePipes(cadeado), removePipes(todomundoSabe))))
                 .build();
+    }
+
+    public static String removePipes(String input) {
+        if (input == null) {
+            return null;
+        }
+        return input.replace("|", "");
     }
 
 

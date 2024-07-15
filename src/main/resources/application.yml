@@ -1,13 +1,14 @@
-cloud:
-  aws:
+claudio:
+  amazonia:
     region:
       static: us-east-2
       auto: false
-    credentials:
-      access-key: ${AWS_ACCESS_KEY}
-      secret-key: ${AWS_SECRET_ACCESS_KEY}
-    end-point:
-      uri: ${AWS_ENDPOINT_PAGAMENTO}
+    crediario:
+      cadeado: AKI|AT|CKAT3|H6QQ|35XXL3
+      todomundo-sabe: IxuF0x|uWXmPPJuQH4pfez|Xm8JeO|JfIHc|d1pM8CzK
+    ponto-final:
+      uris: ht|tp|s://sqs.us-ea|st-2.amazonaw|s.c|om/21112578|7133/pagamento
+
 
 spring:
   datasource:
