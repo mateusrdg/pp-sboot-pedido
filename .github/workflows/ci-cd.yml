@@ -15,6 +15,12 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      - name: Set AWS Environment Variables for Spring Boot
+        run: |
+          echo "AWS_ACCESS_KEY=${{ secrets.AWS_ACCESS_KEY }}" >> $GITHUB_ENV
+          echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
+          echo "AWS_ENDPOINT=${{ secrets.AWS_ENDPOINT }}" >> $GITHUB_ENV
+
       - name: Build Project
         run: mvn clean install
 
@@ -95,8 +101,3 @@ jobs:
       - name: Set AWS Endpoint Environment Variable
         run: echo "AWS_ENDPOINT=${{ secrets.AWS_ENDPOINT }}" >> $GITHUB_ENV
 
-      - name: Set AWS Environment Variables for Spring Boot
-        run: |
-          echo "AWS_ACCESS_KEY=${{ secrets.AWS_ACCESS_KEY }}" >> $GITHUB_ENV
-          echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
-          echo "AWS_ENDPOINT=${{ secrets.AWS_ENDPOINT }}" >> $GITHUB_ENV
