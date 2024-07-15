@@ -14,9 +14,6 @@ import org.springframework.context.annotation.Primary;
 @Configuration
 public class AwsSQSConfig {
 
-    @Value("${cloud.aws.region.static}")
-    private String region;
-
     @Value("${claudio.amazonia.crediario.cadeado}")
     private String cadeado;
 
