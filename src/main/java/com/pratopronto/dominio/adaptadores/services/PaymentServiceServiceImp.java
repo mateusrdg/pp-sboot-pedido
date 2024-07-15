@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pratopronto.dominio.Order;
 import com.pratopronto.dominio.dtos.order.UpdateOrderDTO;
 import com.pratopronto.dominio.enums.StatusEnum;
-import com.pratopronto.dominio.portas.interfaces.OrderServicePort;
 import com.pratopronto.dominio.portas.interfaces.PaymentServicePort;
 import com.pratopronto.dominio.portas.repositories.OrderRepositoryPort;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,15 +12,13 @@ import org.springframework.cloud.aws.messaging.core.QueueMessagingTemplate;
 import org.springframework.cloud.aws.messaging.listener.annotation.SqsListener;
 import org.springframework.messaging.support.MessageBuilder;
 
-import static com.pratopronto.infraestrutura.configuracao.AwsSQSConfig.removePipes;
-
 public class PaymentServiceServiceImp implements PaymentServicePort {
 
     private final QueueMessagingTemplate queueMessagingTemplate;
     private final OrderRepositoryPort orderRepositoryPort;
     private final ObjectMapper objectMapper;
 
-    @Value("${claudio.amazonia.ponto-final.uris}")
+    @Value("${cloud.aws.end-point.uri}")
     private String endpoint;
 
     public PaymentServiceServiceImp(QueueMessagingTemplate queueMessagingTemplate, OrderRepositoryPort orderRepositoryPort, ObjectMapper objectMapper) {
@@ -33,7 +30,7 @@ public class PaymentServiceServiceImp implements PaymentServicePort {
     @Override
     public void sendPayment(Order order) {
         try {
-            queueMessagingTemplate.send(removePipes(endpoint), MessageBuilder.withPayload(objectMapper.writeValueAsString(order)).build());
+            queueMessagingTemplate.send(endpoint, MessageBuilder.withPayload(objectMapper.writeValueAsString(order)).build());
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }

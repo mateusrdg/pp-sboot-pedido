@@ -14,11 +14,14 @@ import org.springframework.context.annotation.Primary;
 @Configuration
 public class AwsSQSConfig {
 
-    @Value("${claudio.amazonia.crediario.cadeado}")
-    private String cadeado;
+    @Value("${cloud.aws.region.static}")
+    private String region;
 
-    @Value("${claudio.amazonia.crediario.todomundo-sabe}")
-    private String todomundoSabe;
+    @Value("${cloud.aws.credentials.access-key}")
+    private String awsAccessKey;
+
+    @Value("${cloud.aws.credentials.secret-key}")
+    private String awsSecretKey;
 
     @Bean
     public QueueMessagingTemplate queueMessagingTemplate() {
@@ -28,17 +31,9 @@ public class AwsSQSConfig {
     @Primary
     @Bean
     public AmazonSQSAsync amazonSQSAsync() {
-
         return AmazonSQSAsyncClientBuilder.standard().withRegion(Regions.US_EAST_2)
-                .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials(removePipes(cadeado), removePipes(todomundoSabe))))
+                .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials(awsAccessKey, awsSecretKey)))
                 .build();
-    }
-
-    public static String removePipes(String input) {
-        if (input == null) {
-            return null;
-        }
-        return input.replace("|", "");
     }
 
 
