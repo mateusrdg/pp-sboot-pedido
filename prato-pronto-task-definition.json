@@ -25,7 +25,7 @@
                 },
                 {
                     "name": "AWS_SECRET_ACCESS_KEY",
-                    "valueFrom": "arn:aws:secretsmanager:us-east-2:211125787133:secret:aws-Skpfk4:AWS_SECRET_ACCESS_KEY"
+                    "valueFrom": "arn:aws:secretsmanager:us-east-2:211125787133:secret:aws-Skpfk4:AWS_SECRET_ACCESS_KEY_VALUE"
                 },
                 {
                     "name": "AWS_ENDPOINT",
